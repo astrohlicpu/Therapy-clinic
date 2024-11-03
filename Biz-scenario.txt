@@ -1,0 +1,60 @@
+I have a therapy clinic with many clients in various situations, and I’m looking for a software solution to help me manage client records. I need a database that will store and organize essential client information. Specifically, I need a database with a single table that includes the following fields:
+
+- Client's first and middle name(s)
+- Client's last name
+- Date of birth
+- Date therapy started and date finished (if applicable)
+- Frequency of appointments e.g., weekly, bi-weekly, twice a week
+- Reason for therapy
+- Any previous diagnoses before starting therapy
+
+Additionally, I need to track each client’s progress during therapy. After 20 weeks, I assess whether their situation has improved. This assessment should be recorded in the database using a ranking system from 1 to 5, where:
+- 1 = Very worsened
+- 2 = Worsened
+- 3 = Stayed the same
+- 4 = Improved
+- 5 = Very improved
+
+The improvement level description should be used both in the database and in generated reports.
+
+Q&A:
+Q: From what age do you accept clients? 
+A: I usually work with adults, but in some cases I would work with children as well, however I won’t accept a child younger than 8 years.
+
+Q: talking about frequency of appointments do you only provide the three options mentioned above?
+A: yes.
+
+-Q: Is there a minimum or maximum duration for therapy?
+  A: The minimum is 20 weeks (clients who finish earlier will not be recorded in the database, client’s information is being entered in this database after the 20th week), but there is no maximum.
+
+-Q: Are there any diagnoses that disqualify a client from therapy at your clinic?
+  A: Yes, I do not accept clients with Schizophrenia or Borderline Personality Disorder (BPD).
+
+Reports:
+I need the following reports:
+1) Number of clients per Frequency of appointments, ordered from highest to lowest.
+2) The average, minimum, and maximum duration of therapy (in days) for adult clients who have completed therapy. Adults are defined as clients who were at least 20 years old when they began therapy.
+3) Average improvement level, divided by age groups:  
+   - Group 1: 8–20 years  
+   - Group 2: 21–40 years  
+   - Group 3: 41–65 years  
+   - Group 4: 66+ years  
+   Results should be ordered from highest to lowest.
+4) number of sessions completed for each client (for clients still in therapy calculated until the current date)
+5) A list of all clients in the following format:  
+   First and middle name last name. age at the start of therapy, date started – date finished, appointment frequency (reason for therapy).  
+   For clients still in therapy, mark them as ‘still attending.’
+
+
+Sample data:
+'John Michael', 'Doe', '1990-05-12', '2023-01-15', '2023-07-15', 'Weekly', 'Anxiety and stress', '', 4
+'Sarah Ann', 'Smith', '1985-09-22', '2023-03-10', null, 'Bi-weekly', 'Depression', 'Bipolar disorder', 1
+'Emily Rose', 'Johnson', '2002-11-03', '2023-04-01', '2023-09-25', 'Twice a week', 'Social anxiety', 'ADHD', 5
+'Daniel Lee', 'Brown', '2012-07-08', '2023-02-14', null, 'Weekly', 'Behavioural issues', '', 2
+'Margaret', 'Davis', '1956-04-17', '2023-01-22', '2023-10-01', 'Bi-weekly', 'Grief after loss', '', 3
+'Alex James', 'Miller', '1999-12-01', '2023-06-20', null, 'Twice a week', 'Career-related stress', 'Generalized anxiety', 2
+'Linda Marie', 'Clark', '1995-07-30', '2023-05-18', '2023-10-28', 'Weekly', 'Panic attacks', '', 1
+'David Jonathan', 'Wilson', '1988-03-15', '2023-04-10', null, 'Bi-weekly', 'Work-related stress', '', 4
+'Sophia Grace', 'Walker', '2009-10-21', '2023-02-28', null, 'Weekly', 'Behavioural issues', '', 3
+'Matthew Thomas', 'Scott', '1965-12-25', '2023-03-05', '2023-09-20', 'Bi-weekly', 'Grief after spouse''s death', '', 2
+
