@@ -18,9 +18,36 @@ where datediff(year,c.DOB,c.DateStarted) >=20
 --    - Group 3: 41–65 years  
 --    - Group 4: 66+ years  
 --    Results should be ordered from highest to lowest.
+
+;with GroupedClient as (
+    select 
+        case 
+            when datediff(year, c.DOB, c.DateStarted) between 8 and 20 then 'Group 1'
+            when datediff(year, c.DOB, c.DateStarted) between 21 and 40 then 'Group 2'
+            when datediff(year, c.DOB, c.DateStarted) between 41 and 65 then 'Group 3'
+            when datediff(year, c.DOB, c.DateStarted) > 65 then 'Group 4'
+        end as GroupName,
+        c.Progress
+    from ClientRecord c
+)
 select 
-from ClientRecord c 
+    GroupName,
+    avg(Progress) as AvgImprovement
+from GroupedClient
+group by GroupName;
 -- 4) number of sessions completed for each client (for clients still in therapy calculated until the current date)
+select c.FirstName,c.LastName, SessionCompleted =
+    case c.frequency
+    when 'weekly' then datediff(week,c.DateStarted, isnull(c.DateFinished,getdate())) 
+    when 'bi-weekly' then datediff(week,c.DateStarted, isnull(c.DateFinished,getdate())) /2
+    else datediff(week,c.DateStarted, isnull(c.DateFinished,getdate())) *2
+    end 
+from ClientRecord c
+
 -- 5) A list of all clients in the following format:  
 --    First and middle name last name. age at the start of therapy, date started – date finished, appointment frequency (reason for therapy).  
 --    For clients still in therapy, mark them as ‘still attending.’
+
+select ClientList = concat(c.FirstName,' ',c.LastName, ' Age:', datediff(year,c.DOB,c.DateStarted), ', Attended: ', convert(varchar,c.DateStarted),  ' - ', isnull(convert(varchar,c.DateFinished),'still attending'),', Frequency: ',c.Frequency, ' (',c.TherapyReason,')')
+from ClientRecord c
+select * from ClientRecord
